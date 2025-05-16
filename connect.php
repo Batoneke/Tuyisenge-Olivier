@@ -1,5 +1,5 @@
 <?php
-$conn=new mysqli("localhost","root","","bank_app");
+$conn=new mysqli("localhost","root","","bank_system");
 if($conn==true){
     // echo"db is connected";
 }

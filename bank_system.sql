@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2025 at 07:30 PM
+-- Generation Time: May 16, 2025 at 10:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bank_app`
+-- Database: `bank_system`
 --
 
 -- --------------------------------------------------------
@@ -29,16 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `accounts` (
   `id` int(11) NOT NULL,
-  `full_name` varchar(100) NOT NULL,
+  `full_name` varchar(100) DEFAULT NULL,
   `balance` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `accounts`
---
-
-INSERT INTO `accounts` (`id`, `full_name`, `balance`) VALUES
-(1, 'Tuyisenge Olivier', 2147483647);
 
 -- --------------------------------------------------------
 
@@ -48,20 +41,32 @@ INSERT INTO `accounts` (`id`, `full_name`, `balance`) VALUES
 
 CREATE TABLE `transactions` (
   `id` int(11) NOT NULL,
-  `account_id` int(11) NOT NULL,
-  `type` enum('deposit','withdraw') NOT NULL,
-  `amount` int(11) NOT NULL,
+  `account_id` int(11) DEFAULT NULL,
+  `type` varchar(10) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
   `transaction_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `transactions`
+-- Table structure for table `users`
 --
 
-INSERT INTO `transactions` (`id`, `account_id`, `type`, `amount`, `transaction_date`) VALUES
-(8, 1, 'deposit', 2147483647, '2025-05-15 17:19:26'),
-(9, 1, 'withdraw', 100000, '2025-05-15 17:19:49'),
-(10, 1, 'deposit', 2147483647, '2025-05-15 17:20:25');
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `full_name` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `full_name`, `email`, `password`) VALUES
+(2, 'Ngoma  Benjamin ', 'nibenjamin2020@gmail.com', '$2y$10$WSFgVx2k6PL636jBVXoSZOolUeY3IcqrsiOotevG619j7TfSZobaG'),
+(3, 'Tuyisenge Olivier', 'nasbrack@gmail.com', '$2y$10$dd3Nr2YW1xroQRmO3ZwFne5k.cgCjRgfxgadScNAagrnQINdE7p0a');
 
 --
 -- Indexes for dumped tables
@@ -81,24 +86,38 @@ ALTER TABLE `transactions`
   ADD KEY `account_id` (`account_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexes for table `users`
 --
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `email_2` (`email`);
 
 --
--- AUTO_INCREMENT for table `accounts`
+-- AUTO_INCREMENT for dumped tables
 --
-ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `accounts`
+--
+ALTER TABLE `accounts`
+  ADD CONSTRAINT `accounts_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `transactions`
