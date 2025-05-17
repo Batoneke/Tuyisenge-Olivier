@@ -10,9 +10,10 @@ if (!isset($_SESSION['user_id'])) {
 <html>
 <head>
   <title>Simple Bank</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=1">
 </head>
 <body>
+  <h1>Tuyisenge Olivier</h1>
   <h1><?php echo $_SESSION['full_name']; ?></h1>
 
   <form action="bank.php" method="POST">
@@ -28,7 +29,6 @@ if (!isset($_SESSION['user_id'])) {
     <button class="check-btn" type="submit" name="action" value="check">Check Balance</button>
   </form>
 
-  <br>
-  <button><a href="logout.php">Logout</a></button>
+  <br><a href="logout.php">Logout</a>
 </body>
 </html>
