@@ -5,7 +5,7 @@ include 'connect.php';
 $user_id = $_SESSION['user_id'];
 $full_name = $_SESSION['full_name'];
 
-// Create account if it doesn't exist
+
 $check = $conn->query("SELECT id FROM accounts WHERE id = $user_id");
 if ($check->num_rows == 0) {
     $conn->query("INSERT INTO accounts (id, full_name, balance) VALUES ($user_id, '$full_name', 0)");
